@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+<meta charset="utf-8">
+<title>قیمت‌ها</title>
+<style>/*__STYLE__*/</style>
+</head>
+<body>
+<div class="widget" id="widget">
+  <div class="grip" id="grip" title="برای تغییر اندازه بکش"></div>
+
+  <header class="head pywebview-drag-region" id="head">
+    <button id="backBtn" class="icon" title="بازگشت" aria-label="بازگشت" hidden>
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+    <span class="live" id="live" aria-hidden="true"></span>
+    <strong id="title">قیمت لحظه‌ای</strong>
+    <span class="age" id="age"></span>
+    <div class="actions">
+      <button id="refreshBtn" class="icon" title="به‌روزرسانی همین حالا" aria-label="به‌روزرسانی">
+        <svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v5h-5"/></svg>
+      </button>
+      <button id="settingsBtn" class="icon" title="تنظیمات" aria-label="تنظیمات">
+        <svg viewBox="0 0 24 24"><path d="M4 7h9M19 7h1M4 17h1M11 17h9"/><circle cx="16" cy="7" r="2.5"/><circle cx="8" cy="17" r="2.5"/></svg>
+      </button>
+      <button id="closeBtn" class="icon" title="پنهان کردن (کنار ساعت می‌ماند)" aria-label="پنهان کردن">
+        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <button id="doneBtn" class="done" hidden>تمام</button>
+    </div>
+  </header>
+
+  <ul class="rows pywebview-drag-region" id="rows"></ul>
+  <p class="empty" id="empty" hidden>ردیفی انتخاب نشده. از تنظیمات یکی اضافه کن.</p>
+
+  <!-- Mouse away, compact on: one row at a time, like stories. -->
+  <section class="story" id="story" hidden>
+    <div class="segs" id="segs" aria-hidden="true"></div>
+    <div class="row" id="storyRow"></div>
+  </section>
+
+  <section class="detail" id="detail" hidden>
+    <div class="quote">
+      <span class="big" id="dPrice"></span><span class="unit" id="dUnit"></span>
+      <span class="delta" id="dDelta"></span>
+    </div>
+    <div class="chart-box" id="chartBox">
+    <div class="tabs" id="dTabs" role="tablist" aria-label="بازه نمودار"></div>
+    <div class="chart" id="chart" dir="ltr">
+      <svg id="plot" viewBox="0 0 276 140" preserveAspectRatio="none" role="img" aria-label="نمودار قیمت"></svg>
+      <div class="tip" id="tip" hidden></div>
+      <div class="chart-note" id="chartNote" hidden>
+        <span id="chartText"></span>
+        <button id="retryBtn" class="btn" hidden>تلاش دوباره</button>
+      </div>
+    </div>
+    <div class="axis" dir="ltr"><span id="dFrom"></span><span id="dTo"></span></div>
+    <div class="extremes">
+      <span>کمترین <b id="dLow">—</b></span>
+      <span>بیشترین <b id="dHigh">—</b></span>
+    </div>
+    </div>
+    <p class="note" id="noChart" hidden>این ردیف از قیمت‌های دیگر حساب می‌شود و نمودار ندارد.</p>
+
+    <div class="alerts">
+      <div class="field-name">هشدار قیمت</div>
+      <label class="alert-row"><span>اگر بالاتر رفت از</span><input id="alertAbove" inputmode="decimal" autocomplete="off" spellcheck="false"></label>
+      <label class="alert-row"><span>اگر پایین‌تر آمد از</span><input id="alertBelow" inputmode="decimal" autocomplete="off" spellcheck="false"></label>
+      <button id="alertSave" class="btn wide">ذخیره‌ی هشدار</button>
+      <p class="note" id="alertNote"></p>
+    </div>
+  </section>
+
+  <section class="settings" id="settings" hidden>
+    <label class="field">
+      <span class="field-name">اندازه</span><output id="scaleOut"></output>
+      <input type="range" id="scale" step="5">
+    </label>
+    <label class="field">
+      <span class="field-name">پررنگی</span><output id="opacityOut"></output>
+      <input type="range" id="opacity" step="5">
+    </label>
+    <label class="field">
+      <span class="field-name">زمان هر استوری</span><output id="storyOut"></output>
+      <input type="range" id="storySeconds" step="1">
+    </label>
+    <label class="field">
+      <span class="field-name">فونت</span>
+      <select id="fontSelect" aria-label="فونت"></select>
+    </label>
+    <div class="checks">
+      <label class="check"><input type="checkbox" id="compact"><span>وقتی ماوس روی آن نیست فقط یک ارز نشان بده</span></label>
+      <label class="check"><input type="checkbox" id="bare"><span>وقتی ماوس روی آن نیست پس‌زمینه نداشته باشد</span></label>
+      <label class="check"><input type="checkbox" id="onTop"><span>همیشه روی پنجره‌های دیگر</span></label>
+      <label class="check"><input type="checkbox" id="locked"><span>قفل باشد (با ماوس جابه‌جا نشود)</span></label>
+      <label class="check" id="autostartRow"><input type="checkbox" id="autostart"><span>با روشن شدن ویندوز اجرا شود</span></label>
+    </div>
+
+    <div class="field-name" id="itemsTitle"></div>
+    <ul class="items" id="items"></ul>
+    <div class="add">
+      <select id="addSelect" aria-label="ردیف تازه"></select>
+      <button id="addBtn" class="btn">افزودن</button>
+    </div>
+    <button id="dockBtn" class="btn wide">بردن کنار ساعت</button>
+    <p class="note">منبع قیمت‌ها: نوبیتکس و tgju</p>
+  </section>
+
+  <footer class="foot" id="foot" hidden></footer>
+</div>
+<script>/*__APP__*/</script>
+</body>
+</html>

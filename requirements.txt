@@ -1,0 +1,4 @@
+pywebview>=6.2
+
+# Only to build the exe:
+# pyinstaller>=6.22
