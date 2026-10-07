@@ -37,6 +37,6 @@ Build the exe with `pyinstaller --noconfirm --clean VernaPriceWidget.spec`, run 
 ## Credits
 
 Prices from the [Nobitex](https://nobitex.ir) public API and [tgju](https://www.tgju.org) (unofficial).
-Fonts: Vazirmatn, Shabnam, Sahel, Samim, Parastoo (Saber Rastikerdar) and Estedad (Amin Abedi), all under the SIL Open Font License.
+Fonts: Vazirmatn, Shabnam, Sahel, Samim, Parastoo (Saber Rastikerdar) and Estedad (Amin Abedi), all under the SIL Open Font License. Their licence files are next to them in `ui/fonts/`; the MIT licence does not cover them.
 
 MIT © 2026 Verna
