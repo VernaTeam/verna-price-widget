@@ -2,6 +2,7 @@
   --bg: #101218;
   --raised: #1b1f28;
   --line: #242833;
+  --sep: #3a4152;  /* row separators and the frame: clearly visible, still quiet */
   --text: #ece9e2;
   --muted: #8e94a0;
   --accent: #f0b429;
@@ -23,7 +24,7 @@ html, body {
 .widget {
   position: absolute; top: 0; left: 0; width: 300px;
   display: flex; flex-direction: column; overflow: hidden;
-  background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--bg); border: 1px solid var(--sep); border-radius: var(--radius);
 }
 .grip { position: absolute; z-index: 5; inset: var(--radius) auto var(--radius) 0; width: 6px; cursor: ew-resize; }
 .grip::after {
@@ -34,7 +35,7 @@ html, body {
 
 .head {
   display: flex; align-items: center; gap: 6px; height: 48px; padding: 0 12px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--sep);
 }
 .head strong { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .age { color: var(--muted); font-size: 11px; white-space: nowrap; }
@@ -71,7 +72,7 @@ button, select, input { font: inherit; color: inherit; }
   height: 58px; padding: 0 12px;
 }
 .rows .row { cursor: pointer; transition: background .12s; }
-.rows .row + .row { border-top: 1px solid var(--line); }
+.rows .row + .row { border-top: 1px solid var(--sep); }
 .rows .row:hover { background: var(--raised); }
 .name { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .when { color: var(--muted); font-size: 11px; white-space: nowrap; grid-row: 2; overflow: hidden; text-overflow: ellipsis; }
@@ -94,7 +95,7 @@ button, select, input { font: inherit; color: inherit; }
 
 .foot {
   min-height: 28px; display: flex; align-items: center; padding: 4px 12px;
-  border-top: 1px solid var(--line); color: var(--down); font-size: 11px;
+  border-top: 1px solid var(--sep); color: var(--down); font-size: 11px;
 }
 
 /* One row at a time while the mouse is away. A bar per row; the current one fills up. */

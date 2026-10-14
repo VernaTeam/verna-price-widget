@@ -310,7 +310,9 @@ function drawSpark(n, id) {
   n.sparkFor = s;  // drawn once per fetch, not on every tick
   const v = s.values, lo = Math.min(...v), hi = Math.max(...v);
   const x = (i) => (i / (v.length - 1) * 100).toFixed(2);
-  const y = (val) => (hi === lo ? 50 : 4 + (hi - val) / (hi - lo) * 92).toFixed(2);
+  // The line keeps clear of the row's bottom edge, or a low line looks like a thick
+  // separator; the shading under it still runs down to the edge.
+  const y = (val) => (hi === lo ? 50 : 4 + (hi - val) / (hi - lo) * 76).toFixed(2);
   const line = v.map((val, i) => (i ? 'L' : 'M') + x(i) + ' ' + y(val)).join('');
   if (!n.spark) {
     n.spark = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
